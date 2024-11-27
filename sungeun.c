@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include <Windows.h>
 #include <conio.h>
+#include <stdlib.h>
 
+#define WIDTH 62
+#define HEIGHT 48
+#define UX 30 
+#define UY 45  
 
 void removeCursor(void) {
     CONSOLE_CURSOR_INFO cursorInfo;
@@ -30,7 +35,7 @@ void help() {
     printf("도움말: 방향키로 *를 움직입니다.\n");
     printf("w: 위로 이동, a: 왼쪽 이동, s: 아래로 이동, d: 오른쪽 이동\n");
     printf("메뉴로 돌아가려면 아무 키나 누르세요...\n");
-    getch();  
+    getch();
     system("cls");
 }
 
@@ -42,7 +47,7 @@ void gameLoop() {
 
     while (1) {
         gotoxy(x, y);
-        printf("*");
+        printf("\033[0;33m * \033[0;33m");
         if (kbhit()) {  
             xyChoice = getch();
             switch (xyChoice) {
@@ -61,7 +66,7 @@ void gameLoop() {
             }
         }
         Sleep(50);  
-        system("cls");  
+        system("cls");
     }
 }
 
@@ -70,6 +75,7 @@ void StartMenu() {
     int choice;
 
     while (1) {
+        printf("번호를 입력하여 게임을 시작하세요");
         printf("===== 게임 메뉴 =====\n");
         printf("1. 게임 시작\n");
         printf("2. 도움말\n");
@@ -77,7 +83,6 @@ void StartMenu() {
         printf("=====================\n");
         printf("번호를 입력하시오: ");
         scanf("%d", &choice);
-
         switch (choice) {
         case 1:  
             gamestart();
